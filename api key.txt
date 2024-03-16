@@ -1,0 +1,18 @@
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAb3tAr-BdrXo_A9US0Rf7LI2nAOqtjfzs",
+  authDomain: "bandhu-4adbc.firebaseapp.com",
+  databaseURL: "https://bandhu-4adbc-default-rtdb.firebaseio.com",
+  projectId: "bandhu-4adbc",
+  storageBucket: "bandhu-4adbc.appspot.com",
+  messagingSenderId: "787273830286",
+  appId: "1:787273830286:web:f098d2f5eb7f8fe5585edf",
+  measurementId: "G-BLBC6MQJW9"
