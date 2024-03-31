@@ -34,33 +34,8 @@
                 "patterns": [],
                 "responses": ["I'm sorry, I didn't understand that."],
                 "context": [""]
-            },
-            {
-                "tag": "timetable",
-                "patterns": ["What is the timetable?", "Show me the timetable"],
-                "responses": [
-                    {
-                        "text": "The timetable is as follows:",
-                        "timetable": {
-                            "Monday": {
-                                "9:00 AM - 10:00 AM": {"subject": "DIVP", "teacher": "Mr.Vivek Sir"},
-                                "10:30 AM - 11:30 AM": {"subject": "IOT&ML", "teacher": "Mrs.Mayuri Mam"}
-                            },
-                            "Tuesday": {
-                                "9:00 AM - 10:00 AM": {"subject": "DL", "teacher": "Mrs.Neha Mam"},
-                                "10:30 AM - 11:30 AM": {"subject": "Mini Project", "teacher": "Mr.Ravi Sir"}
-                            },
-                            "Wednesday": {
-                                "9:00 AM - 10:00 AM": {"subject": "Geography", "teacher": "Mr. Wilson"},
-                                "10:30 AM - 11:30 AM": {"subject": "Physics", "teacher": "Dr.Hemant Sir"}
-                            }
-                        }
-                    }
-                ],
-                "context": [""]
             }
-            
-
+             
 
         ]
     }

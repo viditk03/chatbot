@@ -1,0 +1,1 @@
+{ url_for('static', filename='images/hodsir.jpg') }
