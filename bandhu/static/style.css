@@ -33,11 +33,12 @@ body {
     margin-top: 20px;
 }
 .side-box img {
-    position: bottom left; /* Position the image absolutely */
-    top: 0; /* Align the top of the image with the top of the .side-box */
-    left: 0; /* Align the left of the image with the left of the .side-box */
-    max-height: 350px; /* Set a maximum height for the image */
+    position: bottom left; 
+    top: 0; 
+    left: 0; 
+    max-height: 350px; 
 }
+
 
 .msger {
     display: flex;
@@ -88,17 +89,6 @@ body {
     margin-bottom: 10px;
 }
 
-.msg-img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-    background: #ddd;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    border-radius: 50%;
-}
-
 .msg-bubble {
     max-width: 450px;
     padding: 15px;
@@ -139,9 +129,6 @@ body {
     border-bottom-right-radius: 0;
 }
 
-.right-msg .msg-img {
-    margin: 0 0 0 10px;
-}
 
 .msger-inputarea {
     display: flex;
@@ -176,10 +163,3 @@ body {
     background: rgb(0, 180, 50);
 }
 
-.msger-chat {
-    background-color: #18181B;
-    background-image: url("{{ url_for('static', filename='images/bot.jpg') }}");
-}
-.selector {
-    background-image: url("{{ url_for('static', filename='images/bot.jpg') }}");
-}
