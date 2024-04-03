@@ -35,7 +35,7 @@
         <div class="login-section">
             <header>Login</header>
             <div class="social-buttons">
-                <button><i class='bx bxl-google'></i>Google</button>
+                <button id="google-log-in"><i class='bx bxl-google'></i>Google</button>
                 <button><i class='bx bxl-facebook-circle'></i>Facebook</button>
             </div>
             <div class="separator">
@@ -44,10 +44,9 @@
                 <div class="line"></div>
             </div>
             <form id="login-section"form autocomplete="off" onsubmit="signin(event)">
-                <input type="email" id="email" placeholder="Email" />
-                    <input type="password"id="pass" placeholder="Password" />
-                    <button type="submit
-                    " class="btn">Sign Up </button>
+                <input type="email"  placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                    <button type="submit" class="btn">Log in </button>
             </form>
 
         </div>
@@ -71,6 +70,8 @@
 </script>
 <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-analytics.js"></script>
+
 
 
 <script src="script.js"></script>
