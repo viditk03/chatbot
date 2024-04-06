@@ -1,5 +1,5 @@
  tensorflow 
  keras 
- pickle
+ gunicorn 
  nltk
  flask
