@@ -3,4 +3,4 @@
  gunicorn 
  nltk
  flask
- cuda 
+ cuda : 12.4
