@@ -3,4 +3,4 @@
  gunicorn 
  nltk
  flask
- cuda==12.4
+ cuda==12.4.99
