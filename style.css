@@ -41,13 +41,6 @@ img {
     display: flex;
 }
 
-img:hover {
-    width: 80%;
-    display: flex;
-    transition: all 0.1s ease;
-    animation: forwards;
-}
-
 a {
     text-decoration: none;
 }
@@ -75,7 +68,6 @@ a {
 
 .btn {
     padding: 1rem 2rem;
-
     font-size: 1rem;
     color: #fff;
     background-color: #1d4ed8;
@@ -93,11 +85,16 @@ a {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
+
+}
+
+.btn1:hover {
+    background-color: rgba(0, 238, 255, 0.856);
 }
 
 .btn:hover {
     background-color: rgba(0, 238, 255, 0.856);
-    font-weight: 600;
+
 }
 
 .container {
@@ -124,28 +121,28 @@ header {
 header .content h4 {
     margin-bottom: 0.8rem;
     color: rgba(0, 238, 255, 0.856);
-    text-shadow: rgba(0, 238, 255, 0.856) 1px 0 5px;
+    /* text-shadow: #0ef 0px 1px 3px; */
     font-weight: 900;
-    font-size: 55px;
+    font-size: 45px;
 }
 
 header .content h1 {
     color: rgba(0, 238, 255, 0.856);
-    text-shadow: rgba(0, 238, 255, 0.856) 1px 0 5px;
+    /* text-shadow: #0ef 0px 1px 3px; */
     margin-bottom: 0.8rem;
     font-weight: 900;
     line-height: 4rem;
     font-size: 55px;
 }
 
-
 header .content p {
     margin-bottom: 0.8rem;
     font-weight: 700;
     color: rgb(216, 216, 216);
-    text-shadow: #e0e0e0 1px 0 3px;
+    /* text-shadow: #e0e0e0 1px 0 3px; */
+    /* text-shadow: white 0px 1px 8px; */
     /* text-shadow: 1px 1px 2px #C0C0C0, 0 0 1em #C0C0C0, 0 0 0.2em #C0C0C0; */
-    font-size: 40px;
+    font-size: 45px;
 }
 
 header .image {
@@ -155,6 +152,7 @@ header .image {
 header .image::before {
     content: "o";
     position: absolute;
+    filter: blur(2rem);
     top: 0;
     left: 50%;
     transform: translateX(-50%);
@@ -167,8 +165,11 @@ header .image::before {
 }
 
 header .image img {
+    display: flex;
     max-width: 600px;
-    margin: auto;
+    /* margin: auto; */
+    animation: ease-in-out leftright 4s infinite;
+    /* filter: drop-shadow(0 1mm 1mm #e0e0e0); */
 }
 
 section .header {
@@ -201,7 +202,8 @@ section .header {
 
 .features .card span {
     display: inline-block;
-    background-color: rgba(0, 238, 255, 0.856);;
+    background-color: rgba(0, 238, 255, 0.856);
+    ;
     padding: 2px 9px;
     margin-bottom: 1rem;
     font-size: 1.75rem;
@@ -234,7 +236,6 @@ section .header {
     text-align: center;
     color: #ccc;
 }
-
 
 footer {
     position: relative;
@@ -342,5 +343,19 @@ footer .column>a:hover {
 
     footer {
         grid-template-columns: 1fr 150px;
+    }
+}
+
+@keyframes leftright {
+    0% {
+        margin-left: 0px;
+    }
+
+    50% {
+        margin-left: 120px;
+    }
+
+    100% {
+        margin-left: 0px;
     }
 }
