@@ -145,7 +145,7 @@ signInButton.addEventListener('click', () => {
       alert(`Signed in as ${user.displayName}`);
 
       // Redirect to blank page
-      window.location.href = 'about:blank';
+      window.location.href = 'chatbox (1).html';
     })
     .catch((error) => {
       // Display error message
