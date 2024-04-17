@@ -4,7 +4,10 @@ from nltk.stem import WordNetLemmatizer
 lemmatizer = WordNetLemmatizer()
 import pickle
 import numpy as np
-
+from pyngrok import ngrok
+from pyngrok import ngrok
+import webbrowser
+from flask_ngrok import run_with_ngrok
 from keras.models import load_model
 model = load_model('chatbot/model.h5')
 import json
@@ -77,12 +80,25 @@ def chatbot_response(msg):
 
 from flask import Flask, render_template, request
 
+# Set the port that your Flask app is running on
+port = 5000
+
+public_url = ngrok.connect(port).public_url
+
+#listener = ngrok.forward("localhost:8080", authtoken_from_env=True)
+#print(f"Ingress established at: {listener.url()}")
+
 app = Flask(__name__)
+run_with_ngrok(app)
 app.static_folder = 'static'
+ngrok.set_auth_token("2f1tCVhKtiLenepguarJCLEQEu0_73crhibfp48Mqsp5sceD5")
+
 
 @app.route("/")
 def home():
     return render_template('index.html')
+
+print(' * Tunnel URL:', public_url)
 
 @app.route("/get")
 def get_bot_response():
@@ -90,7 +106,9 @@ def get_bot_response():
     return chatbot_response(userText)
 
 
+
 if __name__ == "__main__":
+    webbrowser.open_new('http://127.0.0.1:5000')
     app.run()
     
     

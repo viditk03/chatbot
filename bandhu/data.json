@@ -19,7 +19,7 @@
                 "context": [""]
             },
             {   "tag": "options",
-                "patterns": ["who is this","who are you"],
+                "patterns": ["whhat is your name","who are you"],
                 "responses": ["Hey there! I'm Bandhu, the chatbot from the Emergicon department.How can I assist you today?" ],
                 "context": [""]
             },
@@ -37,7 +37,7 @@
             },
             {
                 "tag": "timetable",
-                "patterns": ["What is the timetable?", "Show me the timetable"],
+                "patterns": ["Show me the timetable"],
                 "responses": [
                     {
                         "text": "The timetable is as follows:",
@@ -58,9 +58,44 @@
                     }
                 ],
                 "context": [""]
-            }
-            
+            },
+            {
+                "tag": "who_is_vidit",
+                "patterns": ["Who is Vidit?", "Tell me about Vidit"],
+                "responses": [
+                    {
+                        "text": "Vidit is a software engineer.",
+                        "image_path": "h{{ url_for('static', filename='images/hodsir.jpg') }}"
+                    }
+                ]   
+            },
+            {
+                "tag": "Creation_of_bandhu",
+                "patterns": ["who created you"],
+                "responses": ["I was Created by Team BANDHU ,the team members of bandhu are :- 1.Vidit Khairkar 2.Falguni Kalambe 3.Samyak Manwatkar 4.Yash kakde"],
+                "context": [""]
+            },
+            {
+                "tag": "Vidit_info",
+                "patterns": ["Who is Vidit?/who is vidit khairkar"],
+                "responses": ["Vidit is a 3rd year student of sb jain college currently pursing is B.tech degree"],
+                "context": [""]
 
+            },
+            {
+                "tag": "Vidit_info",
+                "patterns": ["Who is Vidit?/who is vidit khairkar"],
+                "responses": ["Vidit is a 3rd year student of sb jain college currently pursing is B.tech degree"],
+                "context": [""]
+
+            },
+            {
+                "tag": "Vidit_info",
+                "patterns": ["Who is Vidit?/who is vidit khairkar"],
+                "responses": ["Vidit is a 3rd year student of sb jain college currently pursing is B.tech degree"],
+                "context": [""]
+
+            }
 
         ]
     }

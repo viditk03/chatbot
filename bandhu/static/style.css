@@ -24,23 +24,43 @@ body {
     align-items: center;
     height: 100vh;
     background: #18181B;
-    font-family: Helvetica, sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
+/* .side-box{
+    gap: 111112rem;
+} */
+
 .side-box h2{
-    color: white;
+    color: #0ef;
+    text-shadow: #0ef 0px 1px 8px;
+    font-size: 2.2em;
     margin-left: 30px;
-    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.side-box h3{
+    display: flex;
+    justify-content: center;
+    padding-right: 26px;
+    color: white;
+    text-shadow: white 0px 1px 8px;
+    font-size: 3em;
+    margin-left: 30px;
+    margin-bottom: 100px;
 }
 .side-box img {
     position: bottom left; 
     top: 0; 
-    left: 0; 
-    max-height: 350px; 
+    left: 0;
+    max-height: 350px;
+    /* margin-left: 20px; */
+    margin-bottom: 82px;
 }
 
 @media only screen and (max-width: 900px) {
     /* Styles for screens less than 600px wide */
+    
     .msger {
         width: 100%;
         height: 100vh;
@@ -80,6 +100,20 @@ body {
         margin-left: 5px;
         font-size: 0.9em;
     }
+    .msger {
+        width: 100%;
+        height: 100vh;
+        max-width: none;
+        max-height: none;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .side-box h2,
+    .side-box h3,
+    .side-box img {
+        display: none; /* Hide the image and text */
+    }
 }
 
 .msger {
@@ -97,12 +131,12 @@ body {
 }
 
 .msger-header {
-    /* display: flex; */
+    display: flex;
     font-size: medium;
     justify-content: space-between;
     padding: 10px;
     text-align: center;
-    border-bottom: var(--border);
+    /* border-bottom: var(--border); */
     background: #18181B;
     color: #666;
 }
@@ -131,11 +165,16 @@ body {
     margin-bottom: 10px;
 }
 
+.msg-text{
+    color: white;
+}
+
 .msg-bubble {
-    max-width: 450px;
+    max-width: 300px;
     padding: 15px;
     border-radius: 15px;
     background: var(--left-msg-bg);
+    word-wrap: break-word;
 }
 
 .msg-info {
@@ -174,34 +213,45 @@ body {
 
 .msger-inputarea {
     display: flex;
-    padding: 10px;
-    border-top: var(--border);
+    padding: 0px;
+    position: relative;
+    /* border-top: var(--border); */
     background: #18181B;
-}
-
-.msger-inputarea * {
-    padding: 10px;
-    border: none;
-    border-radius: 3px;
-    font-size: 1em;
-    color: black;
+ 
 }
 
 .msger-input {
-    flex: 1;
-    background: #fff;
+    padding: 10px;
+    border: 2px solid #0ef;
+    border-radius: 26px;
+    font-size: 1.2em;
+    color: #fff;
+    margin-bottom: 10px;
+    margin-left: 05px;
 }
 
 .msger-send-btn {
-    margin-left: 10px;
-    background: rgb(0, 196, 65);
-    color: #fff;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 2px solid #0ef;
+    background: #18181B;
+    border-radius: 60px;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.23s;
+    font-size: 1.2em;
+    color: #fff;
+    margin-left: 5px;
+    margin-bottom: 10px; 
 }
+
+
+.msger-input {
+    flex: 1;
+    background: #18181B;
+}
+
 
 .msger-send-btn:hover {
-    background: rgb(0, 180, 50);
+    background: #0ef;
 }
-

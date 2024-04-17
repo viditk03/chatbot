@@ -15,9 +15,11 @@
     <!-- partial:index.partial.html -->
 
     <div class="side-box">
-        <h2>Departmental Assistant<br>Bandhu</h2>
-        <img src="{{ url_for('static', filename='images/bg.svg') }}" ,alt="">
+        <h2>Emgering ChatBot<br>Bandhu</h2>
+        <img src="{{ url_for('static', filename='images/bot.svg') }}" ,alt="">
     </div>
+     <!-- Display the timetable response as a table -->
+     <div id="response" style="margin-top: 20px;"></div>
     <section class="msger">
         <header class="msger-header">
             <div class="msger-header-title"></div>
@@ -57,7 +59,7 @@
 
         const BOT_IMG = "bot.jpg";
         const PERSON_IMG = "user.png";
-        const BOT_NAME = "    ChatBot";
+        const BOT_NAME = "    Bandhu";
         const PERSON_NAME = "You";
 
         msgerForm.addEventListener("submit", event => {
