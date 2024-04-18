@@ -1,6 +1,6 @@
- tensorflow 
- keras 
- gunicorn 
- nltk
- flask
+python==3.7.9 
+tensorflow==2.11.0
+keras==2.11.0
+nltk==3.8.1
+flask==2.2.5
 
