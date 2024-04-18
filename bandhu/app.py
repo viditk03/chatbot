@@ -9,12 +9,12 @@ import numpy as np
 import webbrowser
 #from flask_ngrok import run_with_ngrok
 from keras.models import load_model
-model = load_model('chatbot/model.h5')
+model = load_model('bandhu/model.h5')
 import json
 import random
-intents = json.loads(open('chatbot/data.json').read())
-words = pickle.load(open('chatbot/texts.pkl','rb'))
-classes = pickle.load(open('chatbot/labels.pkl','rb'))
+intents = json.loads(open('bandhu/data.json').read())
+words = pickle.load(open('bandhu/texts.pkl','rb'))
+classes = pickle.load(open('bandhu/labels.pkl','rb'))
 
 def clean_up_sentence(sentence):
     # tokenize the pattern - split words into array
