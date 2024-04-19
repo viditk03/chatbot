@@ -111,7 +111,7 @@ const firebaseConfig = {
         alert('Sign-in successful!');
   
         // Redirect to a blank page
-        window.location.href = 'chatbox.html';
+        window.location.href = '/chatbox.html';
       })
       .catch((error) => {
         // Error occurred during sign-in
@@ -145,7 +145,7 @@ const firebaseConfig = {
         alert(`Signed in as ${user.displayName}`);
   
         // Redirect to blank page
-        window.location.href = 'chatbox.html';
+        window.location.href = '/chatbox.html';
       })
       .catch((error) => {
         // Display error message
