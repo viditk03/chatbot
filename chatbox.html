@@ -13,7 +13,9 @@
 </head>
 
 <body>
+    <div class="loader ">
 
+    </div>
     <!-- partial:index.partial.html -->
     <div class="side-box">
         <h2>Emerging Chatbot</h2>
@@ -23,6 +25,12 @@
     </div>
 
     <section class="msger">
+        <div class="logout">
+            <a href="signinn new.html"><i class="fa-solid fa-power-off"></i>Logout</a>
+        </div>
+        <header class="msger-header">
+            <div class="msger-header-title"></div>
+        </header>
         <main class="msger-chat">
             </div>
             <div class="msg-bubble">
@@ -42,7 +50,6 @@
         </form>
     </section>
     <!-- partial -->
-    <script> </script>
     <script>
 
         const msgerForm = get(".msger-inputarea");
@@ -74,8 +81,8 @@
 
   <div class="msg-bubble">
     <div class="msg-info">
-      <div class="msg-info-name">${name}</div>
-      <div class="msg-info-time">${formatDate(new Date())}</div>
+      <div class="msg-info-namer">${name}</div>
+      <div class="msg-info-timer">${formatDate(new Date())}</div>
     </div>
 
     <div class="msg-textr">${text}</div>
@@ -112,6 +119,16 @@
 
             return `${h.slice(-2)}:${m.slice(-2)}`;
         }
+
+        window.addEventListener("load", () =>{
+            const loader = document.querySelector(".loader");
+
+            loader.classList.add("loader--hidden");
+
+            document.querySelector(".loader").addEventListener("transitionend", () => {
+                document.body.removeChild(document.querySelector(".loader"));
+            });
+        });
     </script>
 
 </body>
