@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
 :root {
     --body-bg: #18181B;
     --msger-bg: #18181B;
@@ -64,21 +66,33 @@ body {
 }
 
 .logout{
-    position: absolute;
-    top: 10px;
     border: none;
     background-color: #0ef;
-    right: 11px;
+    padding-bottom: 4px;
+    margin-right: -11px;
+    margin-top: -10px;
     border-radius: 3px;
 }
 
 .logout a{
     text-decoration: none;
-    padding: 15px;
+    padding: 10px;
+}
+
+.logout a:hover{
+    color: #fff;
+}
+
+.side-box{
+    position: relative;
+    /* display: flex; */
+    margin-top: 20px;
+    max-width: 350px;
 }
 
 .side-box h2{
     color: #0ef;
+    position: relative;
     text-shadow: #0ef 0px 1px 8px;
     font-size: 2.2em;
     margin-left: 30px;
@@ -93,17 +107,15 @@ body {
     text-shadow: white 0px 1px 8px;
     font-size: 3em;
     margin-left: 30px;
-    margin-bottom: 100px;
+    margin-bottom: 40px;
 }
 
 .side-box img {
-    position: bottom left; 
     top: 0; 
+    position: relative;
     left: 0;
-    max-height: 350px;
-    /* margin-left: 20px; */
-    margin-bottom: 82px;
-    
+    height: 350px;
+    /* margin-top: -10em; */
 }
 
 .side-box img:hover{
