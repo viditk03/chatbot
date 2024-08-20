@@ -1,3 +1,0 @@
-[build]
-  command = "python app.py"  # Replace "build.py" with your actual build script if you have one
-  publish = "static/style.css"  # Replace "path/to/your/publish/directory" with the directory containing your built files
