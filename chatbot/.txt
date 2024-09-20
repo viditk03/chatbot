@@ -1,0 +1,71 @@
+"{{ url_for('static', filename='style.css') }}"
+"{{ url_for('static', filename='images/bot.svg') }}"
+
+def getResponse(ints, intents_json):
+    tag = ints[0]['intent']
+    list_of_intents = intents_json['intents']
+    for intent in list_of_intents:
+        if intent['tag'] == tag:
+            if 'timetable' in intent['responses'][0]:
+                timetable = intent['responses'][0]['timetable']
+                timetable_html = "<table border='1'><tr><th>DAY</th><th>Time</th>"
+                for i in range(1, 7):  # Add 6 additional columns
+                    timetable_html += f"<th>Subject {i}</th><th>Teacher {i}</th>"
+                timetable_html += "</tr>"
+                for day, periods in timetable.items():
+                    row = f"<tr><td>{day}</td>"
+                    for i in range(1, 7):
+                        if i == 1:
+                            start_time = "10:00 AM"
+                            end_time = "11:30 AM"
+                        elif i == 2:
+                            start_time = "11:30 AM"
+                            end_time = "12:30 PM"
+                        elif i == 3:
+                            start_time = "12:30 PM"
+                            end_time = "1:30 PM"
+                        elif i == 4:
+                            start_time = "1:30 PM"
+                            end_time = "2:30 PM"
+                        elif i == 5:
+                            start_time = "2:30 PM"
+                            end_time = "3:30 PM"
+                        elif i == 6:
+                            start_time = "3:30 PM"
+                            end_time = "4:30 PM"
+                        else:
+                            start_time = "4:30 PM"
+                            end_time = "5:30 PM"
+                            
+                        period_key = f"{i}"
+                        if period_key in periods:
+                            details = periods[period_key]
+                            subject = details['subject']
+                            teacher = details['teacher']
+                            row += f"<td>{start_time} - {end_time}</td><td>{subject}</td><td>{teacher}</td>"
+                        else:
+                            row += "<td></td><td></td><td></td>"
+                    row += "</tr>"
+                    timetable_html += row
+                timetable_html += "</table>"
+                return timetable_html
+            else:
+                return random.choice(intent['responses'])
+    return "I'm sorry, I didn't understand that."
+
+    def getResponse(ints, intents_json):
+    tag = ints[0]['intent']
+    list_of_intents = intents_json['intents']
+    for intent in list_of_intents:
+        if intent['tag'] == tag:
+            if 'timetable' in intent['responses'][0]:
+                timetable = intent['responses'][0]['timetable']
+                timetable_html = "<table border='1'><tr><th>DAY</th><th>Subject</th><th>Time</th><th>Teacher</th></tr>"
+                for day, periods in timetable.items():
+                    for period, details in periods.items():
+                        timetable_html += f"<tr><td>{day}</td><td>{details['subject']}</td><td>{period}</td><td>{details['teacher']}</td></tr>"
+                timetable_html += "</table>"
+                return timetable_html
+            else:
+                return random.choice(intent['responses'])
+    return "I'm sorry, I didn't understand that."

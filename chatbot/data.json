@@ -1,0 +1,192 @@
+{
+        "intents": [
+            {
+                "tag": "greeting",
+                "patterns": ["Hi", "Hello", "Hey","how are you?"],
+                "responses": ["Hello! How can I assist you?", "I'am just doing fine,how are you?,How can i assist you today?"],
+                "context": [""]
+            },
+            {
+                "tag": "goodbye",
+                "patterns": ["Bye", "See you later"],
+                "responses": ["Goodbye! Have a great day."],
+                "context": [""]
+            },
+            {
+                "tag": "thanks",
+                "patterns": ["Thanks", "Thank you"],
+                "responses": ["You're welcome!", "No problem."],
+                "context": [""]
+            },
+            {   "tag": "options",
+                "patterns": ["what is your name","who are you"],
+                "responses": ["Hey there! I'm Bandhu, the chatbot from the Emergicon department.How can I assist you today?" ],
+                "context": [""]
+            },
+           {
+                "tag": "Department_info",
+                "patterns": ["who is the hod of department?"],
+                "responses": ["Dr.Hemant Turkar is the HOD of the department"],
+                "context": [""]
+            },
+            {
+                "tag": "establish_info",
+                "patterns": ["when was the emgering department was formed/establish?"],
+                "responses": ["The Emgering Department was formed on 2021.","The Emgering Department was establish on 2021" ],
+                "context": [""]
+            },
+            {
+                "tag": "noanswer",
+                "patterns": [],
+                "responses": ["I'm sorry, I didn't understand that."],
+                "context": [""]
+            },
+            {
+                "tag": "Creation_of_bandhu",
+                "patterns": ["who created you"],
+                "responses": ["I was Created by Team BANDHU ,the team members of bandhu are :- 1.Vidit Khairkar 2.Falguni Kalambe 3.Samyak Manwatkar 4.Yash kakde"],
+                "context": [""]
+            },
+            {
+                "tag": "Vidit_info",
+                "patterns": ["Who is Vidit?/who is vidit khairkar"],
+                "responses": ["Vidit is a 3rd year student of sb jain college currently pursing is B.tech degree and vidit has done all the integrations from creating a  chatbot training stage to deveploment "],
+                "context": [""]
+
+            },
+            {
+                "tag": "Falguni_info",
+                "patterns": ["Who is Falguni?/who is Falguni Kalambe"],
+                "responses": ["Falguni is a 3rd year student of sb jain college currently pursing is B.tech degree  and Falguni has done all the design and  ui/ux in this project"],
+                "context": [""]
+
+            },
+            {
+                "tag": "Samyak_info",
+                "patterns": ["Who is Samyak?/who is Samyak Manwatkar"],
+                "responses": ["Samyak is a 3rd year student of sb jain college currently pursing is B.tech degree  and Samyak has contributed frontendend in this project"],
+                "context": [""]
+
+            },
+            {
+                "tag": "Yash_info",
+                "patterns": ["Who is Yash?/who is Yash kakd"],
+                "responses": ["Yash is a 3rd year student of sb jain college currently pursing is B.tech degree and yash has contributed backend in this project"],
+                "context": [""]
+
+            },
+            {
+                "tag": "student_info",
+                "patterns": ["how many students are there in department?","how many students are there in 3 year AIML?","how many students are there in 3 year AIDS?"],
+                "responses": ["The number of students in the department is currently 280.","There are currently 70 students in 3 year AIML","There are currently 70 students in 3 year AIDS"],
+                "context": [""]
+            },
+            {
+                "tag": "chai_wala",
+                "patterns": ["order chai"],
+                "responses": ["get your chai at ur place in 2 mins , contact chotu chai wala - +919028985009"],
+                "context": [""]
+        },
+        {
+            "tag": "department_events_seminars",
+            "patterns": [
+                "Can you provide information about department events or seminars?"
+            ],
+            "responses": [
+                "The department regularly organizes various events and seminars. For detailed information, you can visit the department notice board or check the department website."
+            ],
+            "context": ""
+        },
+        {
+            "tag": "technical_events",
+            "patterns": [
+                "Which technical event have been organised in the department so far?"
+            ],
+            "responses": [
+                "Several technical events have been organized in the department, including workshops, hackathons, and guest lectures. For specific information, you can check the department's event calendar or contact the department faculty."
+            ],
+            "context": [""]
+        },
+        {
+            "tag": "training_placement_activities",
+            "patterns": [
+                "What training and placement related activity does the department conduct?"
+            ],
+            "responses": [
+                "The department conducts various training and placement activities, such as mock interviews, resume building workshops, and industry interactions, to enhance students' employability and facilitate placements."
+            ],
+            "context": [""]
+        },
+        {
+            "tag": "kenshu_event",
+            "patterns": ["What is the Kenshu event?"],
+            "responses": ["The Kenshu event is an annual technical symposium organized by the department. It includes technical competitions, workshops, and seminars, providing a platform for students to showcase their talents and learn from experts in the field."],
+            "context": [""]
+        },
+        {
+            "tag": "gate_policy",
+            "patterns": [
+                "Is there any gate related policy in the department?"
+            ],
+            "responses": [
+                "Yes, the department has a gate policy to ensure security and regulate access to certain areas within the department premises. Details of the policy can be obtained from the department office."
+            ],
+            "context": [""]
+        },
+        {
+            "tag": "internship_opportunities",
+            "patterns": [
+                "Are there any internship or co-op opportunities available through the department?"
+            ],
+            "responses": [
+                "Yes, the department facilitates internship and co-op opportunities for students with various organizations. Students can inquire about available opportunities at the department's placement cell."
+            ],
+            "context": ""
+        },
+        {
+            "tag": "open_elective_course",
+            "patterns": [
+                "Can I take an open elective course outside of my department?"
+            ],
+            "responses": [
+                "Yes, you can take an open elective course offered by other departments, subject to approval and availability of seats. Please check with your academic advisor for more information."
+            ],
+            "context": ""
+        },
+        {
+            "tag": "open_elective_own_branch",
+            "patterns": [
+                "Can I take an open elective of my own branch?"
+            ],
+            "responses": [
+                "Yes, you can take an open elective course offered by your own department, provided it is listed as an open elective option. Please consult the department's academic office for more details."
+            ],
+            "context": ""
+        },
+        {
+            "tag": "clubs_in_department",
+            "patterns": [
+                "How many clubs are available in the department?"
+            ],
+            "responses": [
+                "There are several clubs in the department, including technical, cultural, and sports clubs. Some of the prominent clubs include the  Coding Club, and Cultural Club. For a complete list, you can visit the department notice board or website."
+            ],
+            "context": ""
+        },
+        {
+            "tag": "department_president",
+            "patterns": [
+                "Who is the president of the department?"
+            ],
+            "responses": [
+                "The president of the department is Dr.Himanshu Srivastav He provides leadership and oversees the department's activities and initiatives. You can contact the department office for more information."
+            ],
+            "context": ""
+        }
+    ]
+}
+    
+
+
+
+     

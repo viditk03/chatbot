@@ -1,0 +1,60 @@
+{
+  "Monday": {
+    "10:30 AM": "PR/CC",
+    "11:30 AM": "AIR/CNN",
+    "12:30 PM": "NLP/IOT",
+    "01:30 PM": "Lunch Break",
+    "02:30 PM": "You Can Goto Library",
+    "03:30 PM": "Club Hour",
+    "04:30 PM": "Club Hour"
+  },
+  "Tuesday": {
+      "10:30 AM": "TP/AIG",
+      "11:30 AM": "TG Slot",
+      "12:30 PM": "AIR/CNN",
+      "01:30 PM": "Lunch Break",
+      "02:30 PM": "PR/CNN",
+      "03:30 PM": "CNN Lab/AIR Lab",
+      "04:30 PM": "CNN Lab/AIR Lab"
+    },
+  "Wednesday":{
+      "10:30 AM": "NLP/IOT",
+      "11:30 AM": "PR/CC",
+      "12:30 PM": "PR/CC",
+      "01:30 PM": "Lunch Break",
+      "02:30 PM": "TP/AIG",
+      "03:30 PM": "NLP Lab/IOT Lab",
+      "04:30 PM": "NLP Lab/IOT Lab"
+    },
+    "Thursday":{
+      "10:30 AM": "AIR/CN",
+      "11:30 AM": "TP Lab/AIG Lab",
+      "12:30 PM": "Science",
+      "01:30 PM": "Lunch Break",
+      "02:30 PM": "OEC",
+      "03:30 PM": "Major Project Slot",
+      "04:30 PM": "Major Project Slot"
+    },
+    "Friday":{
+      "10:30 AM": "PR/CC",
+      "11:30 AM": "NLP/IOT",
+      "12:30 PM": "TP/AIG",
+      "01:30 PM": "Lunch Break",
+      "02:30 PM": "OEC",
+      "03:30 PM": "Major Project Slot",
+      "04:30 PM": "Major Project Slot"
+    },
+    "Saturday":{
+      "10:30 AM": "Major Project Slot",
+      "11:30 AM": "Major Project Slot",
+      "12:30 PM": "Sports",
+      "01:30 PM": "Lunch Break",
+      "02:30 PM": "OEC",
+      "03:30 PM": "Major Project Slot",
+      "04:30 PM": "Major Project Slot"
+    },
+    "Sunday":{
+      "":"Maajee Karo Bhai log"
+    }
+
+}
