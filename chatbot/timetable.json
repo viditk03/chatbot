@@ -1,0 +1,120 @@
+{
+  "Monday": {
+    "10:30 AM": "PR/CC",
+    "11:30 AM": "AIR/CNN",
+    "12:30 PM": "NLP/IOT",
+    "01:30 PM": "Lunch Break",
+    "02:30 PM": "You Can Goto Library",
+    "03:30 PM": "Club Hour",
+    "04:30 PM": "Club Hour"
+  },
+  "Tuesday": {
+      "10:30 AM": "TP/AIG",
+      "11:30 AM": "TG Slot",
+      "12:30 PM": "AIR/CNN",
+      "01:30 PM": "Lunch Break",
+      "02:30 PM": "PR/CNN",
+      "03:30 PM": "CNN Lab/AIR Lab",
+      "04:30 PM": "CNN Lab/AIR Lab"
+    },
+  "Wednesday":{
+      "10:30 AM": "NLP/IOT",
+      "11:30 AM": "PR/CC",
+      "12:30 PM": "PR/CC",
+      "01:30 PM": "Lunch Break",
+      "02:30 PM": "TP/AIG",
+      "03:30 PM": "NLP Lab/IOT Lab",
+      "04:30 PM": "NLP Lab/IOT Lab"
+    },
+    "Thursday":{
+      "10:30 AM": "AIR/CN",
+      "11:30 AM": "TP Lab/AIG Lab",
+      "12:30 PM": "Science",
+      "01:30 PM": "Lunch Break",
+      "02:30 PM": "OEC",
+      "03:30 PM": "Major Project Slot",
+      "04:30 PM": "Major Project Slot"
+    },
+    "Friday":{
+      "10:30 AM": "PR/CC",
+      "11:30 AM": "NLP/IOT",
+      "12:30 PM": "TP/AIG",
+      "01:30 PM": "Lunch Break",
+      "02:30 PM": "OEC",
+      "03:30 PM": "Major Project Slot",
+      "04:30 PM": "Major Project Slot"
+    },
+    "Saturday":{
+      "10:30 AM": "Major Project Slot",
+      "11:30 AM": "Major Project Slot",
+      "12:30 PM": "Sports",
+      "01:30 PM": "Lunch Break",
+      "02:30 PM": "OEC",
+      "03:30 PM": "Major Project Slot",
+      "04:30 PM": "Major Project Slot"
+    },
+    "Sunday":{
+      "":"Maajee Karo Bhai log"
+    }
+
+}
+
+
+{
+  "timetable_second_year": {
+    "Monday": {
+      "10:30 AM - 11:30 AM": "DAA",
+      "11:30 AM - 12:30 PM": "TOC",
+      "12:30 PM - 1:30 PM": "SEPM",
+      "1:30 AM - 2:30 PM": "LUNCH BREAK",
+      "2:30 PM - 3:30 PM": "TECHNICAL CLUB",
+      "3:30 AM - 4:30 PM": "EFE",
+      "3:30 AM - 4:30 PM": "TECHNICAL CLUB",
+      
+    },
+    "Tuesday": {
+     "10:30 AM - 11:30 AM": "SEPM",
+      "11:30 AM - 12:30 PM": "SEPM",
+      "12:30 PM - 1:30 PM": "TOC",
+      "1:30 AM - 2:30 PM": "LUNCH BREAK",
+      "2:30 PM - 3:30 PM": "TECHNICAL CLUB",
+      "3:30 AM - 4:30 PM": "EFE",
+      "3:30 AM - 4:30 PM": "TECHNICAL CLUB",
+    },
+    "Wednesday": {
+      "10:30 AM - 11:30 AM":"SEPM",
+      "11:30 AM - 12:30 PM":"SS",
+      "12:30 PM - 1:30 PM": "SS",
+      "1:30 AM - 2:30 PM": "LUNCH BREAK",
+      "2:30 PM - 3:30 PM": "TOC",
+      "3:30 AM - 4:30 PM": "DAA LAB",
+      "3:30 AM - 4:30 PM": "DAA LAB",
+    },
+    "Thursday": {
+      "10:30 AM - 11:30 AM":"TOC",
+      "11:30 AM - 12:30 PM":"NNFL",
+      "12:30 PM - 1:30 PM": "DAA",
+      "1:30 AM - 2:30 PM": "LUNCH BREAK",
+      "2:30 PM - 3:30 PM": "OEC",
+      "3:30 AM - 4:30 PM": "SEPM LAB",
+      "3:30 AM - 4:30 PM": "SEPM LAB",
+    },
+    "Friday": {
+      "10:30 AM - 11:30 AM":"TOC",
+      "11:30 AM - 12:30 PM":"DAA",
+      "12:30 PM - 1:30 PM": "NNFL",
+      "1:30 AM - 2:30 PM": "LUNCH BREAK",
+      "2:30 PM - 3:30 PM": "OEC",
+      "3:30 AM - 4:30 PM": "APPTITUDE ACTIVITY",
+      "3:30 AM - 4:30 PM": "APPTITUDE ACTIVITY",
+    },
+    "10:30 AM - 11:30 AM":"SPORTS",
+      "11:30 AM - 12:30 PM":"SPORTS",
+      "12:30 PM - 1:30 PM": "TG SLOT",
+      "1:30 AM - 2:30 PM": "LUNCH BREAK",
+      "2:30 PM - 3:30 PM": "OEC",
+      "3:30 AM - 4:30 PM": "FORUM",
+      "3:30 AM - 4:30 PM": "FORUM",
+    }
+  }
+}

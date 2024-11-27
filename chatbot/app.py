@@ -1,16 +1,18 @@
 import nltk
-nltk.download('popular')
-from nltk.stem import WordNetLemmatizer
-lemmatizer = WordNetLemmatizer()
 import pickle
 import numpy as np
-from pyngrok import ngrok
-from flask_ngrok import run_with_ngrok
 from keras.models import load_model
 import json
 import random
-from flask import Flask, render_template, request, jsonify, send_file, url_for
-import os  
+from flask import Flask, render_template, request, jsonify
+import mysql.connector
+from nltk.stem import WordNetLemmatizer
+
+# Download necessary NLTK data
+nltk.download('popular')
+
+# Initialize the lemmatizer
+lemmatizer = WordNetLemmatizer()
 
 # Load the model and data
 model = load_model('C:/Users/User/OneDrive/Desktop/New_folder/chatbot/model.h5')
@@ -18,103 +20,171 @@ intents = json.loads(open('C:/Users/User/OneDrive/Desktop/New_folder/chatbot/dat
 words = pickle.load(open('C:/Users/User/OneDrive/Desktop/New_folder/chatbot/texts.pkl', 'rb'))
 classes = pickle.load(open('C:/Users/User/OneDrive/Desktop/New_folder/chatbot/labels.pkl', 'rb'))
 
-# Tokenizer and response logic
+# MySQL database connection configuration
+db_config = {
+    'host': 'localhost',
+    'user': 'root',
+    'password': 'vk6688',
+    'database': 'chatbot'
+}
+
+def connect_db():
+    """Establish a connection to the MySQL database"""
+    try:
+        conn = mysql.connector.connect(**db_config)
+        print("Database connection established.")
+        return conn
+    except mysql.connector.Error as err:
+        print(f"Database connection error: {err}")
+        return None
+
 def clean_up_sentence(sentence):
+    """Tokenize and lemmatize the input sentence"""
     sentence_words = nltk.word_tokenize(sentence)
     sentence_words = [lemmatizer.lemmatize(word.lower()) for word in sentence_words]
     return sentence_words
 
 def bow(sentence, words, show_details=True):
+    """Create a bag-of-words representation of the input sentence"""
     sentence_words = clean_up_sentence(sentence)
-    bag = [0] * len(words)  
+    bag = [0] * len(words)
     for s in sentence_words:
         for i, w in enumerate(words):
-            if w == s: 
+            if w == s:
                 bag[i] = 1
                 if show_details:
-                    print("found in bag: %s" % w)
+                    print(f"found in bag: {w}")
     return np.array(bag)
 
 def predict_class(sentence, model):
-    p = bow(sentence, words, show_details=False)
-    res = model.predict(np.array([p]))[0]
-    ERROR_THRESHOLD = 0.25
-    results = [[i, r] for i, r in enumerate(res) if r > ERROR_THRESHOLD]
-    results.sort(key=lambda x: x[1], reverse=True)
-    return_list = [{"intent": classes[r[0]], "probability": str(r[1])} for r in results]
-    return return_list
+    """Predict the class of the input sentence using the trained model"""
+    try:
+        p = bow(sentence, words, show_details=False)
+        res = model.predict(np.array([p]))[0]
+        ERROR_THRESHOLD = 0.25
+        results = [[i, r] for i, r in enumerate(res) if r > ERROR_THRESHOLD]
+        results.sort(key=lambda x: x[1], reverse=True)
+        return classes[results[0][0]] if results else None
+    except Exception as e:
+        print(f"Error in prediction: {e}")
+        return None
 
 def getResponse(ints, intents_json):
-    tag = ints[0]['intent']
-    list_of_intents = intents_json['intents']
-    for intent in list_of_intents:
-        if intent['tag'] == tag:
+    """Get a random response for the predicted intent"""
+    if not ints:
+        return "I'm sorry, I didn't understand that."
+    for intent in intents_json['intents']:
+        if intent['tag'] == ints:
             return random.choice(intent['responses'])
     return "I'm sorry, I didn't understand that."
 
 def chatbot_response(msg):
-    ints = predict_class(msg, model)
+    """Generate a response from the chatbot for the given message"""
+    intent = predict_class(msg, model)
 
-    # Check for timetable requests
-    if "timetable" in msg.lower():
-        return "For which year do you need the timetable? (2nd year, 3rd year, final year)"
+    # Check if the intent is about the timetable
+    if intent == "timetable":
+        return "For which year (second, third, or final) and day would you like to see the timetable?"
 
-    # Check if user has specified a year
-    year_map = {
-        '2nd year': '2nd_year',
-        '3rd year': '3rd_year',
-        'final year': 'final_year'
-    }
-    
-    for year_text, year_key in year_map.items():
-        if year_text in msg.lower():
-            return show_image_response(year_key)
+    # Extract year and day from the message
+    year = extract_year(msg)
+    day = extract_day(msg)
 
-    res = getResponse(ints, intents)
-    return res
+    # Check if both year and day are specified
+    if year and day:
+        return get_timetable(year, day)
 
-# Initialize Flask app
+    # If only year is found
+    if year:
+        return f"You specified year {year}. Please tell me which day."
+
+    # If only day is found
+    if day:
+        return f"You specified day {day}. Please tell me which year."
+
+    # If neither year nor day is found, return a general response
+    return getResponse(intent, intents)
+
+def extract_year(message):
+    """Extract the year (second, third, final) from the message"""
+    if "second" in message.lower():
+        return "second"
+    elif "third" in message.lower():
+        return "third"
+    elif "final" in message.lower():
+        return "final"
+    return None
+
+def extract_day(message):
+    """Extract the day (Monday, Tuesday, etc.) from the message"""
+    days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+    for day in days:
+        if day in message.lower():
+            return day.capitalize()  # Return the day with the first letter capitalized
+    return None
+
+def fetch_timetable_from_db(year, day):
+    """Fetch the timetable for the given year and day from the MySQL database"""
+    conn = connect_db()
+    if conn is None:
+        return None
+    with conn.cursor(dictionary=True) as cursor:
+        if year == 'second':
+            query = "SELECT * FROM timetable_second_year WHERE day = %s"
+        elif year == 'third':
+            query = "SELECT * FROM timetable_third_year WHERE day = %s"
+        else:  # For 'final'
+            query = "SELECT * FROM timetable_final_year WHERE day = %s"
+        cursor.execute(query, (day,))
+        results = cursor.fetchall()
+    conn.close()
+    return results if results else None
+
+def get_timetable(year, day):
+    """Retrieve timetable for a specific year and day"""
+    timetable_data = fetch_timetable_from_db(year, day)
+    if timetable_data:
+        timetable_str = f"Timetable for {year} year on {day}:\n"
+        for entry in timetable_data:
+            timetable_str += f"{entry['time']}: {entry['subject']}\n"
+        return timetable_str
+    else:
+        return f"No timetable found for {year} year on {day}."
+
+# Flask app setup
 app = Flask(__name__)
-run_with_ngrok(app)
-
-# Set the port that your Flask app is running on
-port = 5000
-public_url = ngrok.connect(port).public_url
-ngrok.set_auth_token("2jnFXncySCffOpSRytdqaU3A7P7_7fBzPayARR6Z8a8Ebs3gy")
 
 @app.route("/")
 def home():
-    return render_template('index.html')
+    return render_template("index.html")
 
 @app.route("/get")
 def get_bot_response():
     userText = request.args.get('msg')
-    return chatbot_response(userText)
+    return jsonify(chatbot_response(userText))
 
-# Route to serve the image
-@app.route('/get_image/<year>', methods=['GET'])
-def get_image(year):
-    # Define the file paths for the timetable images
-    image_paths = {
-        '2nd_year': 'static/images/timetable_2nd_year.jpg',
-        '3rd_year': 'static/images/timetable_3rd_year.jpg',
-        'final_year': 'static/images/timetable_final_year.jpg'
-    }
-    
-    # Get the correct image path based on the year provided
-    image_path = image_paths.get(year)
-    
-    if image_path and os.path.exists(image_path):
-        return send_file(image_path, mimetype='image/jpeg')
+@app.route('/check_db_connection', methods=['GET'])
+def check_db_connection():
+    conn = connect_db()
+    if conn:
+        conn.close()
+        return jsonify({"status": "success", "message": "Database connection is healthy."}), 200
     else:
-        return jsonify({'error': 'Invalid year provided or image not found.'}), 404
+        return jsonify({"status": "error", "message": "Failed to connect to the database."}), 500
 
-# Function to generate image response in the chatbot
-def show_image_response(year):
-    image_url = url_for('get_image', year=year)
-    return f"{year.replace('_', ' ').title()}: <img src='{image_url}' alt='Timetable for {year.replace('_', ' ').title()}'>"
+@app.route('/timetable', methods=['GET'])
+def timetable():
+    year = request.args.get('year')
+    day = request.args.get('day')
+    if not year or not day:
+        return jsonify({'error': 'Missing parameters'}), 400
 
-print(' * Tunnel URL:', public_url)
-
+    timetable_data = fetch_timetable_from_db(year, day)
+    if timetable_data:
+        return jsonify({'timetable': timetable_data}), 200
+    else:
+        return jsonify({'error': 'No timetable found'}), 404
+    
+    
 if __name__ == "__main__":
     app.run()

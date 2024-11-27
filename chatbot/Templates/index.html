@@ -8,11 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="chatbox.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body>
-    <div class="loader"></div>
 
     <div class="side-box">
         <h2>Emerging Chatbot</h2>
@@ -39,12 +39,19 @@
                     Hi, welcome to Bandhu! Go ahead and send me a message. 😄
                 </div>
             </div>
+            <div id="micContainer" class="hidden">
+                <div class="micani">
+                  <i class="mic-icon"></i>
+                  <div class="mic-shadow"></div>
+                </div>
         </main>
+        
 
         <form class="msger-inputarea">
             <input type="text" class="msger-input" id="textInput" placeholder="Enter your message...">
             <button type="submit" class="msger-send-btn">Send</button>
-            <button type="button" id="voiceInputBtn" class="msger-voice-btn">🎤</button>
+            <!-- Voice input button -->
+             <button type="button" id="voiceInputBtn" class="mic"><i class="fa fa-microphone" aria-hidden="true"></i></button>
         </form>
     </section>
 
@@ -52,19 +59,25 @@
         const msgerForm = get(".msger-inputarea");
         const msgerInput = get(".msger-input");
         const msgerChat = get(".msger-chat");
-        const voiceInputBtn = document.getElementById('voiceInputBtn');
 
+        // Voice input button
+        const voiceInputBtn = document.getElementById('voiceInputBtn');
+        const micContainer = document.getElementById('micContainer');
+        // Constants for bot and user
         const BOT_IMG = "{{ url_for('static', filename='images/bot.jpg') }}";
         const PERSON_IMG = "{{ url_for('static', filename='images/user.png') }}";
         const BOT_NAME = "Bandhu";
         const PERSON_NAME = "You";
 
+        // Check if the browser supports the Web Speech API
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         const recognition = new SpeechRecognition();
 
+        // Event listener for the form submission (text-based input)
         msgerForm.addEventListener("submit", event => {
             event.preventDefault();
-            const msgText = msgerInput.value.trim();
+
+            const msgText = msgerInput.value;
             if (!msgText) return;
 
             appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
@@ -72,21 +85,27 @@
             botResponse(msgText);
         });
 
+        // Event listener for voice input button
         voiceInputBtn.addEventListener('click', () => {
             recognition.start();
         });
 
+        // Process the recognized speech
         recognition.onresult = event => {
             const speechToText = event.results[0][0].transcript;
             msgerInput.value = speechToText;
+
+            // Auto-send the recognized speech as a message
             appendMessage(PERSON_NAME, PERSON_IMG, "right", speechToText);
             botResponse(speechToText);
         };
 
+        // Error handling for speech recognition
         recognition.onerror = event => {
             console.error('Speech recognition error:', event.error);
         };
 
+        // Append user/bot messages to the chat window
         function appendMessage(name, img, side, text) {
             const msgHTML = `
             <div class="msg ${side}-msg">
@@ -104,18 +123,160 @@
             msgerChat.scrollTop += 500;
         }
 
+        // Handle bot response
         function botResponse(rawText) {
-            $.get("/get", { msg: rawText }).done(function (data) {
-                appendMessage(BOT_NAME, BOT_IMG, "left", data);
-                speak(data);  // Speak the bot's response
-            });
-        }
+            // Convert message to lowercase to handle case-insensitive checks
+            const lowerText = rawText.toLowerCase();
 
+            // Keywords to check for timetable requests
+            const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+            const keywords = ['timetable', ...daysOfWeek];
+
+            // Check if the user's message contains any of the keywords
+            const isTimetableRequest = keywords.some(keyword => lowerText.includes(keyword));
+
+            if (isTimetableRequest) {
+                // Extract day if mentioned
+                const day = daysOfWeek.find(d => lowerText.includes(d));
+                if (day) {
+                    // If a day is found, fetch the timetable for that day
+                    fetchTimetable(day);
+                } else {
+                    // If no day is found but timetable is mentioned, ask user to specify the day
+                    const message = "Please specify the day you'd like to see the timetable for.";
+                    appendMessage(BOT_NAME, BOT_IMG, "left", message);
+                    speak(message);
+                }
+            } else {
+                // General chatbot response
+                $.get("/get", { msg: rawText }).done(function (data) {
+                    const msgText = data;
+                    appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
+                    speak(msgText);  // Speak the bot's response
+                });
+            }
+
+        }
+        
+        let currentYear = ''; // Variable to store the selected year
+        let currentStep = 'year'; // Track the current step (year or day)
+        
+        // Function to handle user input
+        function handleUserInput(input) {
+            input = input.trim().toLowerCase();
+        
+            const validYears = ['second', 'third', 'final'];
+            const validDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+        
+            // If the user asks for the timetable
+            if (input.includes('timetable')) {
+                currentStep = 'year'; // Reset to ask for year first
+                const askYearMsg = `Please specify the year (second, third, or final) to fetch the timetable.`;
+                appendMessage(BOT_NAME, BOT_IMG, "left", askYearMsg);
+                speak(askYearMsg);
+                return; // Exit the function to avoid further processing
+            }
+        
+            // Try to split year and day if they are in the same input
+            const words = input.split(' ');
+            let foundYear = '';
+            let foundDay = '';
+        
+            words.forEach(word => {
+                if (validYears.includes(word)) {
+                    foundYear = word;
+                } else if (validDays.includes(word)) {
+                    foundDay = word;
+                }
+            });
+        
+            // If both year and day are found in the same input
+            if (foundYear && foundDay) {
+                fetchTimetable(foundDay, foundYear); // Fetch timetable
+                currentStep = 'year'; // Reset step
+            } else if (currentStep === 'year') {
+                if (validYears.includes(input)) {
+                    currentYear = input; // Save the selected year
+                    currentStep = 'day'; // Move to the next step
+                    const askDayMsg = `Please specify the day of the week (e.g., Monday, Tuesday).`;
+                    appendMessage(BOT_NAME, BOT_IMG, "left", askDayMsg);
+                    speak(askDayMsg);
+                } else {
+                    const yearErrorMsg = `Invalid year. Please specify either "second", "third", or "final".`;
+                    appendMessage(BOT_NAME, BOT_IMG, "left", yearErrorMsg);
+                    speak(yearErrorMsg);
+                }
+            } else if (currentStep === 'day') {
+                if (validDays.includes(input)) {
+                    fetchTimetable(input, currentYear); // Fetch timetable using valid day and year
+                    currentStep = 'year'; // Reset step after fetching timetable
+                    currentYear = ''; // Clear the current year
+                } else {
+                    const dayErrorMsg = `Invalid day. Please specify a valid day of the week (e.g., Monday, Tuesday).`;
+                    appendMessage(BOT_NAME, BOT_IMG, "left", dayErrorMsg);
+                    speak(dayErrorMsg);
+                }
+            }
+        }
+        
+        function fetchTimetable(day, year) {
+            console.log(`Fetching timetable for Year: ${year}, Day: ${day}`); // Log year and day
+            fetch(`/timetable?year=${year}&day=${day}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.timetable && data.timetable.length > 0) {
+                        let timetableHTML = `
+                            <div style="overflow-x: auto; margin-top: 10px;">
+                                <table border="1" style="border-collapse: collapse; width: 100%; text-align: left;">
+                                    <thead>
+                                        <tr>
+                                            <th>Time</th>
+                                            <th>Subject</th>
+                                            <th>Teacher</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>`;
+                        
+                        data.timetable.forEach(entry => {
+                            timetableHTML += `
+                                <tr>
+                                    <td>${entry.time || 'N/A'}</td>
+                                    <td>${entry.subject || 'N/A'}</td>
+                                    <td>${entry.teacher || 'N/A'}</td>
+                                </tr>`;
+                        });
+        
+                        timetableHTML += `</tbody></table></div>`;
+        
+                        // Display the timetable in the chat
+                        appendMessage(BOT_NAME, BOT_IMG, "left", timetableHTML);
+                        speak(`Here is the timetable for the ${year} year on ${day}.`);
+                    } else {
+                        const noDataMsg = `No timetable found for the ${year} year on ${day}.`;
+                        appendMessage(BOT_NAME, BOT_IMG, "left", noDataMsg);
+                        speak(noDataMsg);
+                    }
+                })
+                .catch(error => {
+                    const errorMsg = `There was a problem fetching the timetable: ${error.message}`;
+                    appendMessage(BOT_NAME, BOT_IMG, "left", errorMsg);
+                    speak(errorMsg);
+                    console.error('Fetch error:', error);
+                });
+        }
+        
+        // Function to make the bot speak responses
         function speak(text) {
             const utterance = new SpeechSynthesisUtterance(text);
             window.speechSynthesis.speak(utterance);
         }
 
+        // Utility functions
         function get(selector, root = document) {
             return root.querySelector(selector);
         }
@@ -125,15 +286,17 @@
             const m = "0" + date.getMinutes();
             return `${h.slice(-2)}:${m.slice(-2)}`;
         }
+        
+        voiceInputBtn.addEventListener('click', () =>{
+            micContainer.classList.remove('hidden');
 
-        window.addEventListener("load", () => {
-            const loader = document.querySelector(".loader");
-            loader.classList.add("loader--hidden");
-            loader.addEventListener("transitionend", () => {
-                document.body.removeChild(loader);
-            });
-        });
+            setTimeout(() => {
+                micContainer.classList.add('hidden');
+            }, 4000);
+        })
+
     </script>
+
 </body>
 
 </html>

@@ -1,0 +1,180 @@
+User  Input: hiii
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: i love you 
+Sentiment: None
+Response: Goodbye! Have a great day.
+
+User  Input: hello
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: fuck you HD madarchod
+Sentiment: None
+Response: No problem.
+
+User  Input: Bekhudi
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: show me the recent activities in the department that have been done
+Sentiment: None
+Response: Several technical events have been organized in the department, including workshops, hackathons, and guest lectures. For specific information, you can check the department's event calendar or contact the department faculty.
+
+User  Input: hii
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: hii
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: second year
+Sentiment: None
+Response: I'am just doing fine,how are you?,How can i assist you today?
+
+User  Input: second
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: second
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: third
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: second_year
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: third_year
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: thir
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: final
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: final_year
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: hii
+Sentiment: None
+Response: I'am just doing fine,how are you?,How can i assist you today?
+
+User  Input: second
+Sentiment: None
+Response: I'am just doing fine,how are you?,How can i assist you today?
+
+User  Input: second year
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: second year
+Sentiment: None
+Response: I'am just doing fine,how are you?,How can i assist you today?
+
+User  Input: hii
+Sentiment: None
+Response: I'am just doing fine,how are you?,How can i assist you today?
+
+User  Input: helllo
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: second
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: hiii
+Sentiment: None
+Response: I'am just doing fine,how are you?,How can i assist you today?
+
+User  Input: Second
+Sentiment: None
+Response: I'am just doing fine,how are you?,How can i assist you today?
+
+User  Input: second
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: hii
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: second year
+Sentiment: None
+Response: I'am just doing fine,how are you?,How can i assist you today?
+
+User  Input: (second)
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: (second)
+Sentiment: None
+Response: I'am just doing fine,how are you?,How can i assist you today?
+
+User  Input: hii
+Sentiment: None
+Response: I'am just doing fine,how are you?,How can i assist you today?
+
+User  Input: second
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: hii
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: second
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: hii
+Sentiment: None
+Response: I'am just doing fine,how are you?,How can i assist you today?
+
+User  Input: third
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: second
+Sentiment: None
+Response: I'am just doing fine,how are you?,How can i assist you today?
+
+User  Input: final
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: final year
+Sentiment: None
+Response: Hello! How can I assist you?
+
+User  Input: final_year
+Sentiment: None
+Response: I'am just doing fine,how are you?,How can i assist you today?
+
+User  Input: third year
+Sentiment: None
+Response: I'am just doing fine,how are you?,How can i assist you today?
+
+User  Input: final year
+Sentiment: None
+Response: I'am just doing fine,how are you?,How can i assist you today?
+
+User  Input: final
+Sentiment: None
+Response: I'am just doing fine,how are you?,How can i assist you today?
+
+User  Input: second year
+Sentiment: None
+Response: Hello! How can I assist you?
+
