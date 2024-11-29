@@ -7,6 +7,8 @@ import random
 from flask import Flask, render_template, request, jsonify
 import mysql.connector
 from nltk.stem import WordNetLemmatizer
+import requests
+from bs4 import BeautifulSoup
 
 # Download necessary NLTK data
 nltk.download('popular')
@@ -68,7 +70,18 @@ def predict_class(sentence, model):
     except Exception as e:
         print(f"Error in prediction: {e}")
         return None
-
+    
+def get_sentiment_response(sentiment):
+    # Lookup the appropriate response based on sentiment
+    for i in intents['intents']:
+        if i['tag'] == 'sentiment':
+            if sentiment == 'positive':
+                return random.choice(i['responses'][0]['positive'])
+            elif sentiment == 'negative':
+                return random.choice(i['responses'][1]['negative'])
+            elif sentiment == 'neutral':
+                return random.choice(i['responses'][2]['neutral'])    
+    
 def getResponse(ints, intents_json):
     """Get a random response for the predicted intent"""
     if not ints:
@@ -79,31 +92,79 @@ def getResponse(ints, intents_json):
     return "I'm sorry, I didn't understand that."
 
 def chatbot_response(msg):
-    """Generate a response from the chatbot for the given message"""
+    """
+    Generate a response from the chatbot for the given message.
+    Handles general intents and specific cases like sentiment analysis and timetable queries.
+    """
+    # Predict intent
     intent = predict_class(msg, model)
-
+    
     # Check if the intent is about the timetable
     if intent == "timetable":
+        year = extract_year(msg)
+        day = extract_day(msg)
+
+        # Check if both year and day are specified
+        if year and day:
+            return get_timetable(year, day)
+
+        # If only year is found
+        if year:
+            return f"You specified year {year}. Please tell me which day."
+
+        # If only day is found
+        if day:
+            return f"You specified day {day}. Please tell me which year."
+
+        # If neither year nor day is found, ask for both
         return "For which year (second, third, or final) and day would you like to see the timetable?"
 
-    # Extract year and day from the message
-    year = extract_year(msg)
-    day = extract_day(msg)
+    # Handle general responses
+    res = getResponse(intent, intents)
 
-    # Check if both year and day are specified
-    if year and day:
-        return get_timetable(year, day)
+    # If a response is found, perform sentiment analysis
+    if res:
+        sentiment_response = requests.post("https://sentiment-analysis-vsj7.onrender.com", data={"text": msg})
+        soup = BeautifulSoup(sentiment_response.text, 'html.parser')
+       
+        # Print out the HTML response from the API in a tabular form
+        print("HTML Response:")
+        print("----------------")
+        tables = soup.find_all('table')
+        for table in tables:
+            rows = table.find_all('tr')
+            for row in rows:
+                cols = row.find_all('td')
+                print("|", end="")
+                for col in cols:
+                    print(col.text.strip().ljust(20), end="|")
+                print()
+            print("-" * 80)
+       
+        # Find all HTML elements with the class 'sentiment'
+        sentiment_elements = soup.find_all('div')
+        print("\nSentiment Elements:")
+        print("--------------------")
+        for element in sentiment_elements:
+            print(element.text.strip())
+       
+        # Extract the sentiment text using a more specific selector
+        sentiment = soup.find('div')
+        if sentiment:
+            sentiment = sentiment.text.strip()
+            print("\nSentiment:")
+            print("----------")
+            print(sentiment)
+        
+        # Generate a response based on sentiment (custom logic here)
+        sentiment_response = get_sentiment_response(sentiment)
+        return f"{res} {sentiment_response}"
+    
+    # If no response is found, return a default fallback response
+    return "I'm sorry, I didn't understand that."
+from flask import Flask, request, jsonify, render_template
+from flask import Flask, render_template, request
 
-    # If only year is found
-    if year:
-        return f"You specified year {year}. Please tell me which day."
-
-    # If only day is found
-    if day:
-        return f"You specified day {day}. Please tell me which year."
-
-    # If neither year nor day is found, return a general response
-    return getResponse(intent, intents)
 
 def extract_year(message):
     """Extract the year (second, third, final) from the message"""
@@ -188,3 +249,27 @@ def timetable():
     
 if __name__ == "__main__":
     app.run()
+
+    #api integration
+
+import requests
+from bs4 import BeautifulSoup
+import random
+
+def call_sentiment_api(user_input):
+    # Your REST API URL
+   
+    api_url = "https://sentiment-analysis-vsj7.onrender.com"
+   
+    # Send the user input to the API
+    payload = {"text": user_input}
+    response = requests.post(api_url, data=payload)
+   
+    # Parse the HTML table in the response
+    soup = BeautifulSoup(response.text, 'html.parser')
+   
+    # Extract the sentiment from the table
+    sentiment_row = soup.find('tr')  # Find the first row of the table
+    sentiment = sentiment_row.find('td').text.strip()  # Extract the sentiment value (e.g., "positive")
+   
+    return sentiment
