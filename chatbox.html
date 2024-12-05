@@ -9,11 +9,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- <link rel="stylesheet"  type="text/css" href="{{ url_for('static', filename='style.css') }}"> -->
     <link rel="stylesheet" href="chatbox.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body>
-    <div class="loader "></div>
+    <!-- <div class="loader "></div> -->
     <!-- partial:index.partial.html -->
     <div class="side-box">
         <h2>Emerging Chatbot</h2>
@@ -41,11 +42,20 @@
                     Hi, welcome to Bandhu! Go ahead and send me a message. 😄
                 </div>
             </div>
+            <div id="micContainer" class="hidden">
+                <div class="micani">
+                  <i class="mic-icon"></i>
+                  <div class="mic-shadow"></div>
+                </div>
             </div>
+            </div>
+
         </main>
+
         <form class="msger-inputarea">
             <input type="text" class="msger-input" id="textInput" placeholder="Enter your message...">
             <button type="submit" class="msger-send-btn">Send</button>
+            <button type="button" id="voiceInputBtn" class="mic"><i class="fa fa-microphone" aria-hidden="true"></i></button>
         </form>
     </section>
     <!-- partial -->
@@ -54,12 +64,17 @@
         const msgerForm = get(".msger-inputarea");
         const msgerInput = get(".msger-input");
         const msgerChat = get(".msger-chat");
+        const voiceInputBtn = document.getElementById('voiceInputBtn');
+        const micContainer = document.getElementById('micContainer');
 
 
         const BOT_IMG = "bot.jpg";
         const PERSON_IMG = "user.png";
-        const BOT_NAME = "    ChatBot";
+        const BOT_NAME = "Bandhu";
         const PERSON_NAME = "You";
+
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
 
         msgerForm.addEventListener("submit", event => {
             event.preventDefault();
@@ -71,6 +86,22 @@
             msgerInput.value = "";
             botResponse(msgText);
         });
+
+        voiceInputBtn.addEventListener('click', () => {
+            recognition.start();
+        });
+
+        recognition.onresult = event => {
+            const speechToText = event.results[0][0].transcript;
+            msgerInput.value = speechToText;
+            appendMessage(PERSON_NAME, PERSON_IMG, "right", speechToText);
+            botResponse(speechToText);
+        };
+
+
+        recognition.onerror = event => {
+            console.error('Speech recognition error:', event.error);
+        };
 
         function appendMessage(name, img, side, text) {
             //   Simple solution for small apps
@@ -106,6 +137,11 @@
 
         }
 
+        function speak(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(utterance);
+        }
+
 
         // Utils
         function get(selector, root = document) {
@@ -119,11 +155,28 @@
             return `${h.slice(-2)}:${m.slice(-2)}`;
         }
 
+        // var mic = document.querySelector(".msger-mic-btn");
+        // mic.addEventListener("click", function () {
+        //     mic.classList.toggle("listening");
+        // });
+
+        // var mic = document.querySelector(".mic");
+        // mic.addEventListener("click", function () {
+        //     mic.classList.toggle("listening");
+        // });
+
+        voiceInputBtn.addEventListener('click', () =>{
+            micContainer.classList.remove('hidden');
+
+            setTimeout(() => {
+                micContainer.classList.add('hidden');
+            }, 4000);
+        })
+
+
         window.addEventListener("load", () =>{
             const loader = document.querySelector(".loader");
-
             loader.classList.add("loader--hidden");
-
             document.querySelector(".loader").addEventListener("transitionend", () => {
                 document.body.removeChild(document.querySelector(".loader"));
             });
